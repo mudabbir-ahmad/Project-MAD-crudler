@@ -1,12 +1,10 @@
-export default function add() {
-  // Initialisation ...............
-  // State ........................
-  // Handlers .....................
-  // View .........................
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 
+export default function App() {
   return (
     <View style={styles.container}>
-      <Text>activity 1 complete on week 1 yay!</Text>
+      <Text>Hello this is the app.js page</Text>
       <StatusBar style="auto" />
     </View>
   );
