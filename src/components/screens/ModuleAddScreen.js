@@ -1,5 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
+import Screen from "../layout/Screen";
 
 export const ModuleAddScreen = () => {
 //   Initialisation -------------
@@ -9,7 +9,6 @@ export const ModuleAddScreen = () => {
   return (
     <Screen style={styles.container}>
       <Text>Add</Text>
-      <StatusBar style="auto" />
     </Screen>
   );
 };
