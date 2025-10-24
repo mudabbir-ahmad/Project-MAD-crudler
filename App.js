@@ -1,20 +1,54 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ModuleListScreen from "./src/components/screens/ModuleListScreen";
+import ModuleModifyScreen from "./src/components/screens/ModuleModifyScreen";
+import ModuleViewScreen from "./src/components/screens/ModuleViewScreen";
+import ModuleAddScreen from "./src/components/screens/ModuleAddScreen";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Hello this is the app.js page</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export const App = () => {
+//   Initialisation -------------
+//   State ----------------------
+//   Handlers -------------------
+//   View -----------------------
+    return (
+        <NavigationContainer>
+         <Stack.Navigator
+             initialRouteName='ModuleAddScreen'
+             screenOptions= {{
+                headerStyle: { backgroundColor: "black" },
+                headerTintColor: "white"
+         }}
+         >
+             <Stack.Screen
+                 name="ModuleListScreen"
+                 component={ModuleListScreen}
+                 options={{  title: 'List Modules' }}
+             />
+
+             <Stack.Screen
+                 name="ModuleAddScreen"
+                 component={ModuleAddScreen}
+                 options={{  title: 'Add Modules' }}
+             />
+
+             <Stack.Screen
+                 name="ModuleViewScreen"
+                 component={ModuleViewScreen}
+                 options={{  title: 'View Modules' }}
+             />
+
+             <Stack.Screen
+              name="ModuleModifyScreen"
+              component={ModuleModifyScreen}
+              options={{  title: 'Modify Modules' }}
+             />
+
+         </Stack.Navigator>
+
+        </NavigationContainer>
+    );
+};
+
+export default App;
