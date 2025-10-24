@@ -11,7 +11,13 @@ export const App = () => {
 //   View -----------------------
     return (
         <NavigationContainer>
-         <Stack.Navigator initialRouteName='ModuleListScreen'>
+         <Stack.Navigator
+             initialRouteName='ModuleListScreen'
+             screenOptions= {{
+                headerStyle: { backgroundColor: "black" },
+                headerTintColor: "white"
+         }}
+         >
 
           <Stack.Screen
               name="ModuleListScreen"
