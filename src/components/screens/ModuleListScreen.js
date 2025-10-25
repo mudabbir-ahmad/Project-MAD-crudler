@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import Screen from "../layout/Screen";
 import ModuleList from "../entity/modules/ModuleList";
 import initialModules from "../../data/modules.js";
-
+import RenderCount from "../UI/RenderCount";
 
 const ModuleListScreen = () => {
 //   Initialisation -------------
@@ -22,6 +22,7 @@ const ModuleListScreen = () => {
 
   return (
     <Screen>
+        <RenderCount />
         <ModuleList modules={modules} onSelect={handleDelete} />
     </Screen>
   );
