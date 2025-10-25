@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
     modulesItem: {
         paddingVertical: 15,
         borderBottomWidth: 1,
-        borderBottomColor: "light grey",
+        borderBottomColor: "lightgray",
     },
     text: {
-        // fontSize: 16,
+        fontSize: 18,
     },
 });
 
