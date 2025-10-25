@@ -18,8 +18,8 @@ export const ModuleListScreen = () => {
         <ScrollView style={styles.modulesContainer}>
         {modules.map((module) => {
                 return(
-                    <Pressable onPress={handleSelect}>
-                        <View key={module.ModuleCode} style={styles.modulesItem}>
+                    <Pressable key={module.ModuleCode} onPress={handleSelect}>
+                        <View style={styles.modulesItem}>
                             <Text style={styles.text}>
                                 {module.ModuleCode} {module.ModuleName}
                             </Text>
