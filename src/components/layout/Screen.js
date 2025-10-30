@@ -1,5 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import {StatusBar} from "expo-status-bar";
+import {StyleSheet, View} from "react-native";
 
 const Screen = ({children}) => {
 //   Initialisation -------------
@@ -9,7 +9,7 @@ const Screen = ({children}) => {
     return (
         <View style={styles.screen}>
             {children}
-            <StatusBar style="light" />
+            <StatusBar style="light"/>
         </View>
     );
 };

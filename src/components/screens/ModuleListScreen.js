@@ -1,51 +1,36 @@
-import {StyleSheet, Text, ScrollView, View, Pressable} from "react-native";
+import {useState} from "react";
+import {StyleSheet} from "react-native";
 import Screen from "../layout/Screen";
-
+import ModuleList from "../entity/modules/ModuleList";
 import initialModules from "../../data/modules.js";
+import RenderCount from "../UI/RenderCount";
 
-
-export const ModuleListScreen = () => {
+const ModuleListScreen = ({navigation}) => {
 //   Initialisation -------------
-    const modules = initialModules;
+//    let modules = initialModules;
 
 //   State ----------------------
-//   Handlers -------------------
-    const handleSelect = () => alert("Item selected");
+    const [modules, setModules] = useState(initialModules);
 
+
+//   Handlers -------------------
+
+    const handleDelete = (module) =>
+        setModules(modules.filter((item) => item.ModuleID !== module.ModuleID));
+
+    const handleSelect = (module) => navigation.navigate('ModuleViewScreen', {module});
 //   View -----------------------
-  return (
-    <Screen>
-        <ScrollView style={styles.modulesContainer}>
-        {modules.map((module) => {
-                return(
-                    <Pressable key={module.ModuleCode} onPress={handleSelect}>
-                        <View style={styles.modulesItem}>
-                            <Text style={styles.text}>
-                                {module.ModuleCode} {module.ModuleName}
-                            </Text>
-                        </View>
-                    </Pressable>
-                )
-            })
-        }
-    </ScrollView>
-    </Screen>
-  );
+
+    return (
+        <Screen>
+            <RenderCount/>
+            <ModuleList modules={modules} onSelect={handleSelect}/>
+        </Screen>
+    );
 };
 
-const styles = StyleSheet.create({
-    modulesContainer: {
-        marginTop: 20,
-    },
-    modulesItem: {
-        padding: 15,
-        marginBottom: 10,
-        borderTopWidth: 1,
-        borderTopColor: "light grey",
-        // borderRadius: 15,
-    },
-    text: {
-    },
-});
+const styles = StyleSheet.create({});
 
 export default ModuleListScreen;
+
+
