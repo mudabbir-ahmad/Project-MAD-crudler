@@ -1,17 +1,17 @@
-import {StyleSheet, ScrollView } from "react-native";
+import {StyleSheet, ScrollView} from "react-native";
 import ModuleItem from "./ModuleItem";
 import React from "react";
 
-const ModuleList = ({modules, onSelect }) => {
+const ModuleList = ({modules, onSelect}) => {
     //   Initialisation -------------
     //   State ----------------------
     //   Handlers -------------------
     //   View -----------------------
 
-    return(
+    return (
         <ScrollView style={styles.modulesContainer}>
             {modules.map((module) => {
-                return(
+                return (
                     <ModuleItem
                         module={module}
                         key={module.ModuleCode}
