@@ -8,7 +8,7 @@ const Component = () => {
     //   View -----------------------
 
     return (
-        <Text></Text>
+        <View></View>
     );
 };
 

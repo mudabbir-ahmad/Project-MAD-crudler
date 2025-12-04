@@ -15,7 +15,6 @@ const ModuleListScreen = ({navigation}) => {
 //   State ----------------------
     const [modules, setModules] = useState(initialModules);
 
-
 //   Handlers -------------------
 
     const handleDelete = (module) =>
@@ -27,17 +26,28 @@ const ModuleListScreen = ({navigation}) => {
         navigation.goBack();
     }
 
-    const handleAdd = (module) => setModules([ ...modules, module]);
+    const handleAdd = (module) => setModules([...modules, module]);
+
+    const handleModify = (updatedModule) => setModules(
+        modules.map((module) => (module.ModuleID === updatedModule.ModuleID) ? updatedModule : module),
+    );
 
     const onAdd = (module) => {
         handleAdd(module);
         navigation.goBack();
     };
 
-    const goToViewScreen = (module) =>
-        navigation.navigate('ModuleViewScreen', {module, onDelete});
+    const onModify = (module) => {
+        handleModify(module);
+        navigation.replace('ModuleViewScreen', { module, onDelete, onModify });
+    };
 
-    const goToAddScreen = () => navigation.navigate('ModuleAddScreen', {onAdd});
+    const goToViewScreen = (module) =>
+        navigation.navigate('ModuleViewScreen', {module, onDelete, onModify});
+
+    const goToAddScreen = () =>
+        navigation.navigate('ModuleAddScreen', {onAdd});
+
 
 //   View -----------------------
 
@@ -45,9 +55,9 @@ const ModuleListScreen = ({navigation}) => {
         <Screen>
             {/*<RenderCount/>*/}
             <ButtonTray>
-                <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen} />
+                <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
             </ButtonTray>
-            <ModuleList modules={modules} onSelect={goToViewScreen} />
+            <ModuleList modules={modules} onSelect={goToViewScreen}/>
         </Screen>
     );
 };
