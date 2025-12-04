@@ -12,7 +12,7 @@ export const ModuleViewScreen = ({route}) => {
 //   Handlers -------------------
 //   View -----------------------
     return (<Screen>
-        <ModuleView module={module} onDelete={onDelete}></ModuleView>
+        <ModuleView module={module} onDelete={onDelete} />
     </Screen>);
 };
 
