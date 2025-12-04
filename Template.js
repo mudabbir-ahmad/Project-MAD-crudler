@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 
 const Component = () => {
 
@@ -9,7 +9,7 @@ const Component = () => {
 
     return (
         <Text></Text>
-);
+    );
 };
 
 const styles = StyleSheet.create({});
