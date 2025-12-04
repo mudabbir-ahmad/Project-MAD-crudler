@@ -3,10 +3,13 @@ import FullWidthImage from "react-native-fullwidth-image";
 import {Button, ButtonTray} from "../../UI/Button";
 import Icons from "../../UI/Icons.js"
 
-const ModuleView = ({module}) => {
+const ModuleView = ({module, onDelete}) => {
     //   Initialisation -------------
     //   State ----------------------
     //   Handlers -------------------
+
+    const handleDelete = () => onDelete(module);
+
     //   View -----------------------
 
     return (<View style={styles.container}>
@@ -27,6 +30,7 @@ const ModuleView = ({module}) => {
                 label={"Delete"}
                 styleButton={{backgroundColor: 'mistyrose'}}
                 styleLabel={{color: 'red'}}
+                onClick={handleDelete}
             />
         </ButtonTray>
 
