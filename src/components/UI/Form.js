@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {Picker} from "@react-native-picker/picker";
 
 import {Button, ButtonTray} from "./Button";
@@ -13,17 +13,17 @@ const Form = ({children, onSubmit, onCancel, submitLabel, submitIcon}) => {
     //   View -----------------------
 
     return (
-        <View style={styles.formContainer}>
+        <KeyboardAvoidingView style={styles.formContainer}>
 
-            <View style={styles.formItems}>
+            <ScrollView contentContainerStyle={styles.formItems}>
                 {children}
-            </View>
+            </ScrollView>
 
             <ButtonTray>
                 <Button label='Cancel' icon={<Icons.Close/>} onClick={onCancel}/>
                 <Button label={submitLabel} icon={submitIcon} onClick={onSubmit}/>
             </ButtonTray>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
