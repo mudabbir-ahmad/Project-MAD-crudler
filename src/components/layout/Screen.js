@@ -1,7 +1,7 @@
 import {StatusBar} from "expo-status-bar";
 import {StyleSheet, View} from "react-native";
 
-const Screen = ({children}) => {
+const Screen = ({ children }) => {
 //   Initialisation -------------
 //   State ----------------------
 //   Handlers -------------------

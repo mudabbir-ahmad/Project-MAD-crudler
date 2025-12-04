@@ -1,7 +1,8 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Icons from "../../UI/Icons";
 import Form from "../../UI/Form";
+import API from "../../API/API";
 
 const defaultModule = {
     ModuleID: null,
@@ -9,8 +10,8 @@ const defaultModule = {
     ModuleName: null,
     ModuleLevel: null,
     ModuleLeaderID: null,
-    ModuleLeaderName: null,
-    ModuleImage: null,
+    ModuleYearID: null,
+    ModuleImageURL: null,
 };
 
 const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
@@ -20,6 +21,8 @@ const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
     defaultModule.ModuleID = Math.floor(100000 + Math.random() * 900000);
     defaultModule.ModuleImage = 'https://images.freeimages.com/images/small-preview/cf5/cellphone-1313194.jpg';
 
+    const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
+
     const levels = [
         {value: 3, label: '3 (Foundation)'},
         {value: 4, label: '4 (First Year)'},
@@ -28,10 +31,31 @@ const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
         {value: 7, label: '7 (Masters)'},
     ];
 
+    // const cohorts = [
+    //     {value: 1, label: 'local 2022-23'},
+    //     {value: 2, label: 'local 2023-24'},
+    //     {value: 3, label: 'local 2024-25'},
+    //     {value: 3, label: 'local 2025-26'},
+    //     {value: 5, label: 'local 2026-27'},
+    // ];
+
 
     //   State ----------------------
 
     const [module, setModule] = useState(originalModule || defaultModule);
+
+    const [years, setYears] = useState([]);
+    const [isYearsLoading, setIsYearsLoading] = useState(true);
+
+    const loadYears = async (endpoint) => {
+        const response = await API.get(endpoint);
+        setIsYearsLoading(false);
+        if (response.isSuccess) setYears(response.result);
+    };
+
+    useEffect(() => {
+        loadYears(yearsEndpoint)
+    }, []);
 
     //   Handlers -------------------
 
@@ -46,6 +70,8 @@ const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
 
     const submitLabel = originalModule ? 'Modify' : 'Add';
     const submitIcon = originalModule ? <Icons.Edit/> : <Icons.Add/>;
+
+    const cohorts = years.map((year) => ({value: year.YearID, label: year.YearName}) );
 
 
     return (
@@ -67,13 +93,23 @@ const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
                 value={module.ModuleName}
                 onChange={(value) => handleChange('ModuleName', value)}
             />
-
+            { isYearsLoading ? <Text>Loading Levels...</Text> :
             <Form.InputSelect
                 label='Module Level'
                 prompt={'Select module level...'}
                 options={levels}
                 value={module.ModuleLevel}
                 onChange={(value) => handleChange('ModuleLevel', value)}
+                isLoading={isYearsLoading}
+            />
+            }
+
+            <Form.InputSelect
+                label='Module cohort'
+                prompt={'Select module cohort...'}
+                options={cohorts}
+                value={module.ModuleYearID}
+                onChange={(value) => handleChange('ModuleYearID', value)}
             />
 
             <Form.InputText
@@ -84,8 +120,8 @@ const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
 
             <Form.InputText
                 label='Module Image URL'
-                value={module.ModuleImage}
-                onChange={(value) => handleChange('ModuleImage', value)}
+                value={module.ModuleImageURL}
+                onChange={(value) => handleChange('ModuleImageURL', value)}
             />
 
             {/* This is to test whether the correct Data was being stored in Local State */}

@@ -1,10 +1,10 @@
 import {useState, useEffect} from "react";
-import {LogBox, StyleSheet} from "react-native";
+import {LogBox, StyleSheet, Text} from "react-native";
 import Screen from "../layout/Screen";
 import ModuleList from "../entity/modules/ModuleList";
 import API from "../API/API";
 // import initialModules from "../../data/modules.js";
-import RenderCount from "../UI/RenderCount";
+// import RenderCount from "../UI/RenderCount";
 import {Button, ButtonTray} from "../UI/Button";
 import Icons from "../UI/Icons";
 
@@ -25,7 +25,9 @@ const ModuleListScreen = ({navigation}) => {
         if (response.isSuccess) setModules(response.result);
     };
 
-    useEffect( () => {loadModules(modulesEndpoint)}, [] );
+    useEffect(() => {
+        loadModules(modulesEndpoint)
+    }, []);
 
 //   Handlers -------------------
 
@@ -65,10 +67,13 @@ const ModuleListScreen = ({navigation}) => {
 
     return (
         <Screen>
-            <RenderCount/>
+            {/*<RenderCount/>*/}
             <ButtonTray>
                 <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
             </ButtonTray>
+
+            {isLoading && <Text>Loading Records...</Text>}
+
             <ModuleList modules={modules} onSelect={goToViewScreen}/>
         </Screen>
     );
