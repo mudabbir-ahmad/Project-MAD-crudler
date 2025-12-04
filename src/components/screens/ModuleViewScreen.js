@@ -11,7 +11,7 @@ export const ModuleViewScreen = ({navigation, route}) => {
 //   State ----------------------
 //   Handlers -------------------
 
-    const goToModifyScreen = () => navigation.navigate("ModuleModifyScreen", { module, onModify });
+    const goToModifyScreen = () => navigation.replace("ModuleModifyScreen", { module, onModify });
 
 //   View -----------------------
     return (<Screen>

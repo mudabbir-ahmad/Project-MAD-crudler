@@ -39,7 +39,7 @@ const ModuleListScreen = ({navigation}) => {
 
     const onModify = (module) => {
         handleModify(module);
-        navigation.navigate('ModuleListScreen');
+        navigation.replace('ModuleViewScreen', { module, onDelete, onModify });
     };
 
     const goToViewScreen = (module) =>
