@@ -3,7 +3,9 @@ import {LogBox, StyleSheet} from "react-native";
 import Screen from "../layout/Screen";
 import ModuleList from "../entity/modules/ModuleList";
 import initialModules from "../../data/modules.js";
-import RenderCount from "../UI/RenderCount";
+// import RenderCount from "../UI/RenderCount";
+import {Button, ButtonTray} from "../UI/Button";
+import Icons from "../UI/Icons";
 
 const ModuleListScreen = ({navigation}) => {
 //   Initialisation -------------
@@ -25,14 +27,27 @@ const ModuleListScreen = ({navigation}) => {
         navigation.goBack();
     }
 
-    const handleSelect = (module) =>
+    const handleAdd = (module) => setModules([ ...modules, module]);
+
+    const onAdd = (module) => {
+        handleAdd(module);
+        navigation.goBack();
+    };
+
+    const goToViewScreen = (module) =>
         navigation.navigate('ModuleViewScreen', {module, onDelete});
+
+    const goToAddScreen = () => navigation.navigate('ModuleAddScreen', {onAdd});
+
 //   View -----------------------
 
     return (
         <Screen>
             {/*<RenderCount/>*/}
-            <ModuleList modules={modules} onSelect={handleSelect}/>
+            <ButtonTray>
+                <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen} />
+            </ButtonTray>
+            <ModuleList modules={modules} onSelect={goToViewScreen} />
         </Screen>
     );
 };
