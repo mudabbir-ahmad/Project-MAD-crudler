@@ -24,7 +24,7 @@ const ModuleListScreen = ({navigation}) => {
         navigation.goBack();
     }
 
-    const handleSelect = (module) => navigation.navigate('ModuleViewScreen', { module, handleDelete });
+    const handleSelect = (module) => navigation.navigate('ModuleViewScreen', { module, onDelete });
 //   View -----------------------
 
     return (
