@@ -24,13 +24,14 @@ const ModuleView = ({module, onDelete, onModify}) => {
     //   View -----------------------
 
     return (<View style={styles.container}>
-        <FullWidthImage source={{uri: module.ModuleImage}} style={styles.image}/>
+        <FullWidthImage source={{uri: module.ModuleImageURL}} style={styles.image}/>
 
         <View style={styles.infoTray}>
             <Text style={styles.boldText}>View {module.ModuleCode} {module.ModuleName}</Text>
             <Text style={styles.text}>Level {module.ModuleLevel}</Text>
+            <Text style={styles.text}>cohort {module.ModuleYearID}</Text>
             <Text style={styles.Text}>
-                {module.ModuleLeaderName} <Text style={styles.dimText}>(Module Leader)</Text>
+                {module.ModuleLeaderID} <Text style={styles.dimText}>(Module Leader)</Text>
             </Text>
         </View>
 

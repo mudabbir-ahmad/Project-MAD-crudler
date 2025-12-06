@@ -1,19 +1,26 @@
-import {useState} from "react";
-import {LogBox, StyleSheet} from "react-native";
+// import {useState, useEffect} from "react";
+import {LogBox, Text} from "react-native";
 import Screen from "../layout/Screen";
 import ModuleList from "../entity/modules/ModuleList";
-import initialModules from "../../data/modules.js";
+// import API from "../API/API";
+// import initialModules from "../../data/modules.js";
 // import RenderCount from "../UI/RenderCount";
 import {Button, ButtonTray} from "../UI/Button";
 import Icons from "../UI/Icons";
+import useLoad from "../API/useLoad";
+
 
 const ModuleListScreen = ({navigation}) => {
 //   Initialisation -------------
 //    let modules = initialModules;
     LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
+
+    const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
+
 //   State ----------------------
-    const [modules, setModules] = useState(initialModules);
+
+    const [modules, setModules, isLoading, loadModules] = useLoad(modulesEndpoint);
 
 //   Handlers -------------------
 
@@ -39,7 +46,7 @@ const ModuleListScreen = ({navigation}) => {
 
     const onModify = (module) => {
         handleModify(module);
-        navigation.replace('ModuleViewScreen', { module, onDelete, onModify });
+        navigation.replace('ModuleViewScreen', {module, onDelete, onModify});
     };
 
     const goToViewScreen = (module) =>
@@ -57,12 +64,15 @@ const ModuleListScreen = ({navigation}) => {
             <ButtonTray>
                 <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
             </ButtonTray>
+
+            {isLoading && <Text>Loading Records...</Text>}
+
             <ModuleList modules={modules} onSelect={goToViewScreen}/>
         </Screen>
     );
 };
 
-const styles = StyleSheet.create({});
+// const styles = StyleSheet.create({});
 
 export default ModuleListScreen;
 
