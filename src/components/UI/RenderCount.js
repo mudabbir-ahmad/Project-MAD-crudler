@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Text, StyleSheet } from "react-native";
+import {useRef} from "react";
+import {Text, StyleSheet} from "react-native";
 
 const RenderCount = ({backgroundColor = 'dodgerblue', fontColor = 'white'}) => {
 //     Initialisation -------------
@@ -9,7 +9,7 @@ const RenderCount = ({backgroundColor = 'dodgerblue', fontColor = 'white'}) => {
 //     Handlers -------------------
 //     View -----------------------
     return (
-        <Text style={[styles.count, { backgroundColor, color: fontColor}]}>
+        <Text style={[styles.count, {backgroundColor, color: fontColor}]}>
             Number of renders: {renderCount.current}
         </Text>
     );

@@ -22,7 +22,7 @@ const useLoad = (loadEndpoint) => {
 
     //   return ----------------------
 
-    return[records, setRecords, isLoading, loadRecords];
+    return [records, setRecords, isLoading, loadRecords];
 };
 
 export default useLoad;
