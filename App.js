@@ -9,6 +9,7 @@ import UserViewScreen from "./src/components/screens/UserViewScreen";
 import UserAddScreen from "./src/components/screens/UserAddScreen";
 import UserListScreen from "./src/components/screens/UserListScreen";
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {StyleSheet} from "react-native";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -17,12 +18,14 @@ const ModuleStack = () => (
     <Stack.Navigator
         initialRouteName='ModuleListScreen'
         screenOptions={{
-            headerShown: false  // Hide stack headers
+            headerStyle: {backgroundColor: "black"},
+            headerTintColor: "white"
         }}
     >
         <Stack.Screen
             name="ModuleListScreen"
             component={ModuleListScreen}
+            options={{headerShown: true}}
         />
         <Stack.Screen
             name="ModuleAddScreen"
@@ -42,12 +45,16 @@ const ModuleStack = () => (
 const UserStack = () => (
     <Stack.Navigator
         screenOptions={{
-            headerShown: false  // Hide stack headers
+            headerStyle: {backgroundColor: "black"},
+            headerTintColor: "white",
+            swipeEdgeWidth: 100,
+            drawerType: 'slide',
         }}
     >
         <Stack.Screen
             name="UserListScreen"
             component={UserListScreen}
+            options={{headerShown: true}}
         />
         <Stack.Screen
             name="UserAddScreen"
@@ -69,8 +76,9 @@ export const App = () => {
         <NavigationContainer>
             <Drawer.Navigator
                 screenOptions={{
-                    headerStyle: {backgroundColor: "black"},
-                    headerTintColor: "white"
+                    headerBackgroundColor: "black",
+                    headerShown: false,
+                    swipeEnabled: true
                 }}
             >
                 <Drawer.Screen
