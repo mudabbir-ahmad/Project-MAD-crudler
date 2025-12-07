@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import {Text} from "react-native";
 import {useState} from "react";
 import Icons from "../../UI/Icons";
 import Form from "../../UI/Form";

@@ -9,7 +9,6 @@ import UserViewScreen from "./src/components/screens/UserViewScreen";
 import UserAddScreen from "./src/components/screens/UserAddScreen";
 import UserListScreen from "./src/components/screens/UserListScreen";
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {StyleSheet} from "react-native";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
