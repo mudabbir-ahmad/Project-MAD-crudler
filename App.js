@@ -8,80 +8,82 @@ import UserModifyScreen from "./src/components/screens/UserModifyScreen";
 import UserViewScreen from "./src/components/screens/UserViewScreen";
 import UserAddScreen from "./src/components/screens/UserAddScreen";
 import UserListScreen from "./src/components/screens/UserListScreen";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
+const ModuleStack = () => (
+    <Stack.Navigator
+        initialRouteName='ModuleListScreen'
+        screenOptions={{
+            headerShown: false  // Hide stack headers
+        }}
+    >
+        <Stack.Screen
+            name="ModuleListScreen"
+            component={ModuleListScreen}
+        />
+        <Stack.Screen
+            name="ModuleAddScreen"
+            component={ModuleAddScreen}
+        />
+        <Stack.Screen
+            name="ModuleViewScreen"
+            component={ModuleViewScreen}
+        />
+        <Stack.Screen
+            name="ModuleModifyScreen"
+            component={ModuleModifyScreen}
+        />
+    </Stack.Navigator>
+);
+
+const UserStack = () => (
+    <Stack.Navigator
+        screenOptions={{
+            headerShown: false  // Hide stack headers
+        }}
+    >
+        <Stack.Screen
+            name="UserListScreen"
+            component={UserListScreen}
+        />
+        <Stack.Screen
+            name="UserAddScreen"
+            component={UserAddScreen}
+        />
+        <Stack.Screen
+            name="UserViewScreen"
+            component={UserViewScreen}
+        />
+        <Stack.Screen
+            name="UserModifyScreen"
+            component={UserModifyScreen}
+        />
+    </Stack.Navigator>
+);
+
 export const App = () => {
-//   Initialisation -------------
-//   State ----------------------
-//   Handlers -------------------
-//   View -----------------------
     return (
         <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName='ModuleListScreen'
+            <Drawer.Navigator
                 screenOptions={{
                     headerStyle: {backgroundColor: "black"},
                     headerTintColor: "white"
                 }}
             >
-                <Stack.Screen
-                    name="ModuleListScreen"
-                    component={ModuleListScreen}
-                    options={{title: 'List Modules'}}
+                <Drawer.Screen
+                    name="Module Crudler"
+                    component={ModuleStack}
                 />
-
-                <Stack.Screen
-                    name="ModuleAddScreen"
-                    component={ModuleAddScreen}
-                    options={{title: 'Add Modules'}}
+                <Drawer.Screen
+                    name="User Crudler"
+                    component={UserStack}
                 />
-
-                <Stack.Screen
-                    name="ModuleViewScreen"
-                    component={ModuleViewScreen}
-                    options={{title: 'View Modules'}}
-                />
-
-                <Stack.Screen
-                    name="ModuleModifyScreen"
-                    component={ModuleModifyScreen}
-                    options={{title: 'Modify Modules'}}
-                />
-
-                {/*USERS SECTION BELOW*/}
-
-                <Stack.Screen
-                    name="UserListScreen"
-                    component={UserListScreen}
-                    options={{title: 'List Users'}}
-                />
-
-                <Stack.Screen
-                    name="UserAddScreen"
-                    component={UserAddScreen}
-                    options={{title: 'Add Users'}}
-                />
-
-                <Stack.Screen
-                    name="UserViewScreen"
-                    component={UserViewScreen}
-                    options={{title: 'View Users'}}
-                />
-
-                <Stack.Screen
-                    name="UserModifyScreen"
-                    component={UserModifyScreen}
-                    options={{title: 'Modify Users'}}
-                />
-
-
-            </Stack.Navigator>
+            </Drawer.Navigator>
         </NavigationContainer>
-    )
-        ;
+    );
 };
 
 export default App;
