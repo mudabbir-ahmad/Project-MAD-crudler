@@ -2,9 +2,6 @@
 import {LogBox, Text} from "react-native";
 import Screen from "../layout/Screen";
 import ModuleList from "../entity/modules/ModuleList";
-// import API from "../API/API";
-// import initialModules from "../../data/modules.js";
-// import RenderCount from "../UI/RenderCount";
 import {Button, ButtonTray} from "../UI/Button";
 import Icons from "../UI/Icons";
 import useLoad from "../API/useLoad";
@@ -14,7 +11,6 @@ const ModuleListScreen = ({navigation}) => {
 //   Initialisation -------------
 //    let modules = initialModules;
     LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
-
 
     const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
 
