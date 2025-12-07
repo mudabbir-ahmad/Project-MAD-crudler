@@ -8,8 +8,9 @@ import UserModifyScreen from "./src/components/screens/UserModifyScreen";
 import UserViewScreen from "./src/components/screens/UserViewScreen";
 import UserAddScreen from "./src/components/screens/UserAddScreen";
 import UserListScreen from "./src/components/screens/UserListScreen";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-
+const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 export const App = () => {
@@ -20,7 +21,7 @@ export const App = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName='UserListScreen'
+                initialRouteName='ModuleListScreen'
                 screenOptions={{
                     headerStyle: {backgroundColor: "black"},
                     headerTintColor: "white"
