@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import FullWidthImage from "react-native-fullwidth-image";
-import Icons from "../../UI/Icons";
-import { ListItem } from "../../UI/List";
+import { Button, ButtonTray } from "../../UI/Button";
+import Icons from "../../UI/Icons.js";
 
-const UserItem = ({ user, onSelect }) => {
+const UserView = ({ user, onDelete, onModify }) => {
     // Initialisation -------------
 
     const fullName = `${user.UserFirstname} ${user.UserLastname}`;
@@ -11,38 +11,59 @@ const UserItem = ({ user, onSelect }) => {
     // State ----------------------
     // Handlers -------------------
 
-    const handleSelect = () => onSelect(user);
+    const handleDelete = () => onDelete(user);
+
+    const requestDelete = () => {
+        Alert.alert(
+            'Delete Warning',
+            `Are you sure you want to delete user ${fullName}?`,
+            [
+                { text: 'Cancel' },
+                { text: 'Delete', onPress: handleDelete }
+            ]
+        );
+    };
 
     // View -----------------------
 
     return (
-        <ListItem onPress={handleSelect}>
-            <FullWidthImage
-                source={{ uri: user.UserImageURL }}
-                style={styles.image}
-            />
+        <View style={styles.container}>
+            <FullWidthImage source={{ uri: user.UserImageURL }} style={styles.image} />
 
             <View style={styles.infoTray}>
-                <Text style={styles.boldText}>{fullName}</Text>
+                <Text style={styles.boldText}>View {fullName}</Text>
                 <Text style={styles.text}>{user.UserEmail}</Text>
+                <Text style={styles.text}>Level {user.UserLevel}</Text>
                 <Text style={styles.text}>
-                    {user.UserUsertypeName || 'Unknown Type'}
-                    <Text style={styles.dimText}> (Level {user.UserLevel})</Text>
+                    {user.UserUsertypeName || 'Unknown Type'} <Text style={styles.dimText}>(User Type)</Text>
                 </Text>
             </View>
 
-            <Icons.Forward />
-        </ListItem>
+            <ButtonTray>
+                <Button
+                    icon={<Icons.Edit />}
+                    label={"Modify"}
+                    onClick={onModify}
+                />
+                <Button
+                    icon={<Icons.Delete />}
+                    label={"Delete"}
+                    onClick={requestDelete}
+                />
+            </ButtonTray>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    image: {
-        borderRadius: 3,
+    container: {
+        gap: 15,
     },
     infoTray: {
         gap: 5,
-        flex: 1,
+    },
+    image: {
+        borderRadius: 3,
     },
     text: {
         fontSize: 16,
@@ -53,7 +74,7 @@ const styles = StyleSheet.create({
     },
     dimText: {
         color: "grey",
-    },
+    }
 });
 
-export default UserItem;
+export default UserView;
