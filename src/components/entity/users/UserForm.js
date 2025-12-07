@@ -1,5 +1,5 @@
-import { Text } from "react-native";
-import { useState } from "react";
+import {Text} from "react-native";
+import {useState} from "react";
 import Icons from "../../UI/Icons";
 import Form from "../../UI/Form";
 import useLoad from "../../API/useLoad";
@@ -15,7 +15,7 @@ const defaultUser = {
     UserImageURL: null,
 };
 
-const UserForm = ({ originalUser, onSubmit, onCancel }) => {
+const UserForm = ({originalUser, onSubmit, onCancel}) => {
     // Initialisation -------------
 
     defaultUser.UserID = Math.floor(100000 + Math.random() * 900000);
@@ -25,11 +25,11 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
 
     const levels = [
-        { value: 3, label: '3 (Foundation)' },
-        { value: 4, label: '4 (First Year)' },
-        { value: 5, label: '5 (Second Year)' },
-        { value: 6, label: '6 (Third Year)' },
-        { value: 7, label: '7 (Masters)' },
+        {value: 3, label: '3 (Foundation)'},
+        {value: 4, label: '4 (First Year)'},
+        {value: 5, label: '5 (Second Year)'},
+        {value: 6, label: '6 (Third Year)'},
+        {value: 7, label: '7 (Masters)'},
     ];
 
     // State ----------------------
@@ -42,7 +42,7 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     // Handlers -------------------
 
     const handleChange = (field, value) => {
-        setUser({ ...user, [field]: value });
+        setUser({...user, [field]: value});
     };
 
     const handleSubmit = () => onSubmit(user);
@@ -50,7 +50,7 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     // View -----------------------
 
     const submitLabel = originalUser ? 'Modify' : 'Add';
-    const submitIcon = originalUser ? <Icons.Edit /> : <Icons.Add />;
+    const submitIcon = originalUser ? <Icons.Edit/> : <Icons.Add/>;
 
     const usertypeOptions = userTypes.map((usertype) => ({
         value: usertype.UsertypeID,

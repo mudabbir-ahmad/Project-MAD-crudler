@@ -1,9 +1,9 @@
 import Screen from "../layout/Screen";
 import UserForm from "../entity/users/UserForm";
 
-const UserModifyScreen = ({ navigation, route }) => {
+const UserModifyScreen = ({navigation, route}) => {
     // Initialisation -------------
-    const { user, onModify } = route.params;
+    const {user, onModify} = route.params;
 
     // State ----------------------
     // Handlers -------------------

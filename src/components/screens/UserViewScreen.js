@@ -1,15 +1,15 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 import Screen from "../layout/Screen";
 import UserView from "../entity/users/UserView";
 
-const UserViewScreen = ({ navigation, route }) => {
+const UserViewScreen = ({navigation, route}) => {
     // Initialisation -------------
-    const { user, onDelete, onModify } = route.params;
+    const {user, onDelete, onModify} = route.params;
 
     // State ----------------------
     // Handlers -------------------
 
-    const goToModifyScreen = () => navigation.replace("UserModifyScreen", { user, onModify });
+    const goToModifyScreen = () => navigation.replace("UserModifyScreen", {user, onModify});
 
     // View -----------------------
     return (

@@ -11,7 +11,7 @@ const ModuleListScreen = ({navigation}) => {
 //   Initialisation -------------
 //    let modules = initialModules;
     LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
-    
+
     const modulesEndpoint = 'https://softwarehub.uk/unibase/api/modules';
 
 //   State ----------------------

@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import {StyleSheet, Text, View, Pressable} from "react-native";
 import useLoad from "../../API/useLoad";
 
-const UserItem = ({ user, onSelect }) => {
+const UserItem = ({user, onSelect}) => {
     //   Initialisation -------------
 
     const usertypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
@@ -17,6 +17,7 @@ const UserItem = ({ user, onSelect }) => {
     //   State ----------------------
     //   Handlers -------------------
     //   View -----------------------
+
     return (
         <Pressable key={user.UserID} onPress={() => onSelect(user)}>
             <View style={styles.userItem}>

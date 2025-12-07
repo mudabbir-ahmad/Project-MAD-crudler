@@ -1,19 +1,19 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import {Alert, StyleSheet, Text, View} from "react-native";
 import FullWidthImage from "react-native-fullwidth-image";
-import { Button, ButtonTray } from "../../UI/Button";
+import {Button, ButtonTray} from "../../UI/Button";
 import Icons from "../../UI/Icons.js";
 
-const UserView = ({ user, onDelete, onModify }) => {
+const UserView = ({user, onDelete, onModify}) => {
     // Initialisation -------------
 
     const fullName = `${user.UserFirstname} ${user.UserLastname}`;
 
     const levels = [
-        { value: 3, label: '3 (Foundation)' },
-        { value: 4, label: '4 (First Year)' },
-        { value: 5, label: '5 (Second Year)' },
-        { value: 6, label: '6 (Third Year)' },
-        { value: 7, label: '7 (Masters)' },
+        {value: 3, label: '3 (Foundation)'},
+        {value: 4, label: '4 (First Year)'},
+        {value: 5, label: '5 (Second Year)'},
+        {value: 6, label: '6 (Third Year)'},
+        {value: 7, label: '7 (Masters)'},
     ];
 
     // State ----------------------
@@ -26,8 +26,8 @@ const UserView = ({ user, onDelete, onModify }) => {
             'Delete Warning',
             `Are you sure you want to delete user ${fullName}?`,
             [
-                { text: 'Cancel' },
-                { text: 'Delete', onPress: handleDelete }
+                {text: 'Cancel'},
+                {text: 'Delete', onPress: handleDelete}
             ]
         );
     };
@@ -38,7 +38,7 @@ const UserView = ({ user, onDelete, onModify }) => {
 
     return (
         <View style={styles.container}>
-            <FullWidthImage source={{ uri: user.UserImageURL }} style={styles.image} />
+            <FullWidthImage source={{uri: user.UserImageURL}} style={styles.image}/>
 
             <View style={styles.infoTray}>
                 <Text style={styles.boldText}>{fullName}</Text>
@@ -51,12 +51,12 @@ const UserView = ({ user, onDelete, onModify }) => {
 
             <ButtonTray>
                 <Button
-                    icon={<Icons.Edit />}
+                    icon={<Icons.Edit/>}
                     label={"Modify"}
                     onClick={onModify}
                 />
                 <Button
-                    icon={<Icons.Delete />}
+                    icon={<Icons.Delete/>}
                     label={"Delete"}
                     onClick={requestDelete}
                 />

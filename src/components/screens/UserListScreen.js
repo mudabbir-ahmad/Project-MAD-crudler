@@ -1,11 +1,11 @@
-import { LogBox, Text } from "react-native";
+import {LogBox, Text} from "react-native";
 import Screen from "../layout/Screen";
 import UserList from "../entity/users/UserList";
-import { Button, ButtonTray } from "../UI/Button";
+import {Button, ButtonTray} from "../UI/Button";
 import Icons from "../UI/Icons";
 import useLoad from "../API/useLoad";
 
-const UserListScreen = ({ navigation }) => {
+const UserListScreen = ({navigation}) => {
     // Initialisation -------------
     LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
@@ -36,14 +36,14 @@ const UserListScreen = ({ navigation }) => {
 
     const onModify = (user) => {
         handleModify(user);
-        navigation.replace('UserViewScreen', { user, onDelete, onModify });
+        navigation.replace('UserViewScreen', {user, onDelete, onModify});
     };
 
     const goToViewScreen = (user) =>
-        navigation.navigate('UserViewScreen', { user, onDelete, onModify });
+        navigation.navigate('UserViewScreen', {user, onDelete, onModify});
 
     const goToAddScreen = () =>
-        navigation.navigate('UserAddScreen', { onAdd });
+        navigation.navigate('UserAddScreen', {onAdd});
 
     const handleSwitchToModules = () => {
         navigation.navigate("ModuleListScreen");
@@ -53,12 +53,12 @@ const UserListScreen = ({ navigation }) => {
     return (
         <Screen>
             <ButtonTray>
-                <Button label='Add' icon={<Icons.Add />} onClick={goToAddScreen} />
+                <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
             </ButtonTray>
 
             {isLoading && <Text>Loading Records...</Text>}
 
-            <UserList users={users} onSelect={goToViewScreen} />
+            <UserList users={users} onSelect={goToViewScreen}/>
         </Screen>
     );
 };
