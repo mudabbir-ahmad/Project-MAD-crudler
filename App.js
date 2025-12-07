@@ -13,41 +13,45 @@ export const App = () => {
 //   Handlers -------------------
 //   View -----------------------
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName='ModuleListScreen'
-                screenOptions={{
-                    headerStyle: {backgroundColor: "black"},
-                    headerTintColor: "white"
-                }}
-            >
-                <Stack.Screen
-                    name="ModuleListScreen"
-                    component={ModuleListScreen}
-                    options={{title: 'List Modules'}}
-                />
+        <GestureHandlerRootView style={{flex: 1}}>
+            <Drawer>
+                <Drawer.Screen name="Module Crudler" component={ModuleListScreen}/>
+            </Drawer>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName='ModuleListScreen'
+                    screenOptions={{
+                        headerStyle: {backgroundColor: "black"},
+                        headerTintColor: "white"
+                    }}
+                >
+                    <Stack.Screen
+                        name="ModuleListScreen"
+                        component={ModuleListScreen}
+                        options={{title: 'List Modules'}}
+                    />
 
-                <Stack.Screen
-                    name="ModuleAddScreen"
-                    component={ModuleAddScreen}
-                    options={{title: 'Add Modules'}}
-                />
+                    <Stack.Screen
+                        name="ModuleAddScreen"
+                        component={ModuleAddScreen}
+                        options={{title: 'Add Modules'}}
+                    />
 
-                <Stack.Screen
-                    name="ModuleViewScreen"
-                    component={ModuleViewScreen}
-                    options={{title: 'View Modules'}}
-                />
+                    <Stack.Screen
+                        name="ModuleViewScreen"
+                        component={ModuleViewScreen}
+                        options={{title: 'View Modules'}}
+                    />
 
-                <Stack.Screen
-                    name="ModuleModifyScreen"
-                    component={ModuleModifyScreen}
-                    options={{title: 'Modify Modules'}}
-                />
+                    <Stack.Screen
+                        name="ModuleModifyScreen"
+                        component={ModuleModifyScreen}
+                        options={{title: 'Modify Modules'}}
+                    />
 
-            </Stack.Navigator>
-
-        </NavigationContainer>
+                </Stack.Navigator>
+            </NavigationContainer>
+        </GestureHandlerRootView>
     );
 };
 
