@@ -1,74 +1,59 @@
-import {Alert, StyleSheet, Text, View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import FullWidthImage from "react-native-fullwidth-image";
-import {Button, ButtonTray} from "../../UI/Button";
-import Icons from "../../UI/Icons.js"
+import Icons from "../../UI/Icons";
+import { ListItem } from "../../UI/List";
 
-const UserView = ({module, onDelete, onModify}) => {
-    //   Initialisation -------------
-    //   State ----------------------
-    //   Handlers -------------------
+const UserItem = ({ user, onSelect }) => {
+    // Initialisation -------------
 
-    const handleDelete = () => onDelete(module);
+    const fullName = `${user.UserFirstname} ${user.UserLastname}`;
 
-    const requestDelete = () => {
-        Alert.alert(
-            'Delete Warning',
-            `Are you sure you want to delete module ${module.ModuleCode} ${module.ModuleName}?`,
-            [
-                {text: 'cancel'},
-                {text: 'Delete', onPress: handleDelete}
-            ]
-        );
-    }
+    // State ----------------------
+    // Handlers -------------------
 
-    //   View -----------------------
+    const handleSelect = () => onSelect(user);
 
-    return (<View style={styles.container}>
-        <FullWidthImage source={{uri: module.ModuleImageURL}} style={styles.image}/>
+    // View -----------------------
 
-        <View style={styles.infoTray}>
-            <Text style={styles.boldText}>View {module.ModuleCode} {module.ModuleName}</Text>
-            <Text style={styles.text}>Level {module.ModuleLevel}</Text>
-            <Text style={styles.text}>cohort {module.ModuleYearID}</Text>
-            <Text style={styles.Text}>
-                {module.ModuleLeaderID} <Text style={styles.dimText}>(Module Leader)</Text>
-            </Text>
-        </View>
-
-        <ButtonTray>
-            <Button
-                icon={<Icons.Edit/>}
-                label={"Modify"}
-                onClick={onModify}
+    return (
+        <ListItem onPress={handleSelect}>
+            <FullWidthImage
+                source={{ uri: user.UserImageURL }}
+                style={styles.image}
             />
-            <Button
-                icon={<Icons.Delete/>}
-                label={"Delete"}
-                // styleButton={{backgroundColor: 'mistyrose'}}
-                // styleLabel={{color: 'red'}}
-                onClick={requestDelete}
-            />
-        </ButtonTray>
 
-    </View>);
+            <View style={styles.infoTray}>
+                <Text style={styles.boldText}>{fullName}</Text>
+                <Text style={styles.text}>{user.UserEmail}</Text>
+                <Text style={styles.text}>
+                    {user.UserUsertypeName || 'Unknown Type'}
+                    <Text style={styles.dimText}> (Level {user.UserLevel})</Text>
+                </Text>
+            </View>
+
+            <Icons.Forward />
+        </ListItem>
+    );
 };
 
-
 const styles = StyleSheet.create({
-    container: {
-        gap: 15,
-    }, infoTray: {
-        gap: 5,
-    }, image: {
+    image: {
         borderRadius: 3,
-    }, text: {
+    },
+    infoTray: {
+        gap: 5,
+        flex: 1,
+    },
+    text: {
         fontSize: 16,
-    }, boldText: {
-        fontSize: 16, fontWeight: 'bold',
-    }, dimText: {
+    },
+    boldText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    dimText: {
         color: "grey",
-    }
-
+    },
 });
 
-export default UserView;
+export default UserItem;

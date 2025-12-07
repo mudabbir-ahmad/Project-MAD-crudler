@@ -20,15 +20,14 @@ const defaultUser = {
 
 const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     // Initialisation -------------
-
+    
     const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
-    const usertypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
+    const userEndpoint = 'https://softwarehub.uk/unibase/api/user';
 
     const [years, , isYearsLoading] = useLoad(yearsEndpoint);
-    const [usertypes, , isUsertypesLoading] = useLoad(usertypesEndpoint);
+    const [users, , isUsersLoading] = useLoad(userEndpoint);
 
     // State ----------------------
-
     const [user, setUser] = useState(originalUser || {
         ...defaultUser,
         UserID: Math.floor(100000 + Math.random() * 900000),
@@ -37,7 +36,6 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     });
 
     // Handlers -------------------
-
     const handleChange = (field, value) => {
         setUser({ ...user, [field]: value });
     };
@@ -45,15 +43,14 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     const handleSubmit = () => onSubmit(user);
 
     // View -----------------------
-
     const submitLabel = originalUser ? 'Modify' : 'Add';
     const submitIcon = originalUser ? <Icons.Edit /> : <Icons.Add />;
 
     const levels = [
-        { value: '4', label: 'Level 4' },
-        { value: '5', label: 'Level 5' },
-        { value: '6', label: 'Level 6' },
-        { value: '7', label: 'Level 7' }
+        { value: 4, label: 'Level 4' },
+        { value: 5, label: 'Level 5' },
+        { value: 6, label: 'Level 6' },
+        { value: 7, label: 'Level 7' }
     ];
 
     return (
@@ -81,29 +78,27 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
                 onChange={(value) => handleChange('UserEmail', value)}
             />
 
+            <Form.InputSelect
+                label='User Level'
+                prompt='Select user level...'
+                options={levels}
+                value={user.UserLevel}
+                onChange={(value) => handleChange('UserLevel', value)}
+            />
+
             {isYearsLoading ? (
-                <Text>Loading Levels...</Text>
+                <Text>Loading Years...</Text>
             ) : (
                 <Form.InputSelect
-                    label='User Level'
-                    prompt='Select user level...'
-                    options={levels}
-                    value={user.UserLevel}
-                    onChange={(value) => handleChange('UserLevel', value)}
-                    isLoading={isYearsLoading}
+                    label='Year/Cohort'
+                    value={user.UserYearID}
+                    onChange={(value) => handleChange('UserYearID', value)}
+                    prompt='Select year/cohort...'
+                    options={years}
                 />
             )}
 
-            <Form.InputSelect
-                label='Year/Cohort'
-                value={user.UserYearID}
-                onChange={(value) => handleChange('UserYearID', value)}
-                prompt='Select year/cohort...'
-                options={years}
-                isLoading={isYearsLoading}
-            />
-
-            {isUsertypesLoading ? (
+            {isUsersLoading ? (
                 <Text>Loading User Types...</Text>
             ) : (
                 <Form.InputSelect
@@ -111,8 +106,7 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
                     value={user.UserUsertypeID}
                     onChange={(value) => handleChange('UserUsertypeID', value)}
                     prompt='Select user type...'
-                    options={usertypes}
-                    isLoading={isUsertypesLoading}
+                    options={users}
                 />
             )}
 

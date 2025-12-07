@@ -1,25 +1,24 @@
-import {StyleSheet, Text, View, Pressable} from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 
-const UserItem = ({user, onSelect}) => {
-    //   Initialisation -------------
-    //   State ----------------------
-    //   Handlers -------------------
-    //   View -----------------------
+const UserItem = ({ user, onSelect }) => {
+    // Initialisation -------------
+    // State ----------------------
+    // Handlers -------------------
+    // View -----------------------
 
     return (
-        <Pressable key={user.UserCode} onPress={() => onSelect(user)}>
-            <View style={styles.usersItem}>
+        <Pressable key={user.UserID} onPress={() => onSelect(user)}>
+            <View style={styles.userItem}>
                 <Text style={styles.text}>
-                    {user.UserCode} {user.UserName}
+                    `${user.UserFirstname} ${user.UserLastname}`
                 </Text>
             </View>
         </Pressable>
     );
 };
 
-
 const styles = StyleSheet.create({
-    usersItem: {
+    userItem: {
         paddingVertical: 15,
         borderBottomWidth: 1,
         borderBottomColor: "lightgray",

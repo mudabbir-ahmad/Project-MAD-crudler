@@ -1,42 +1,32 @@
-// import {useState, useEffect} from "react";
-import {LogBox, Text} from "react-native";
+import { LogBox, Text } from "react-native";
 import Screen from "../layout/Screen";
-import {Button, ButtonTray} from "../UI/Button";
+import UserList from "../entity/users/UserList";
+import { Button, ButtonTray } from "../UI/Button";
 import Icons from "../UI/Icons";
 import useLoad from "../API/useLoad";
-import {createDrawerNavigator} from "@react-navigation/drawer";
-import ModuleViewScreen from "./ModuleViewScreen";
-import UserViewScreen from "./UserViewScreen";
 
-
-const UserListScreen = ({navigation}) => {
-//   Initialisation -------------
-//    let modules = initialModules;
+const UserListScreen = ({ navigation }) => {
+    // Initialisation -------------
     LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
-
-    const Drawer = createDrawerNavigator();
 
     const usersEndpoint = 'https://softwarehub.uk/unibase/api/users';
 
-//   State ----------------------
-
+    // State ----------------------
     const [users, setUsers, isLoading, loadUsers] = useLoad(usersEndpoint);
 
-//   Handlers -------------------
-
+    // Handlers -------------------
     const handleDelete = (user) =>
-        setUsers(users.filter((item) => item.UserID !== module.UserID));
-
+        setUsers(users.filter((item) => item.UserID !== user.UserID));
 
     const onDelete = (user) => {
         handleDelete(user);
         navigation.goBack();
-    }
+    };
 
     const handleAdd = (user) => setUsers([...users, user]);
 
     const handleModify = (updatedUser) => setUsers(
-        users.map((user) => (module.UserID === updatedUser.UserID) ? updatedUser : user),
+        users.map((user) => (user.UserID === updatedUser.UserID) ? updatedUser : user),
     );
 
     const onAdd = (user) => {
@@ -46,45 +36,31 @@ const UserListScreen = ({navigation}) => {
 
     const onModify = (user) => {
         handleModify(user);
-        navigation.replace('UserViewScreen', {user, onDelete, onModify});
+        navigation.replace('UserViewScreen', { user, onDelete, onModify });
     };
 
-    const goToViewScreen = (module) =>
-        navigation.navigate('UserViewScreen', {user, onDelete, onModify});
+    const goToViewScreen = (user) =>
+        navigation.navigate('UserViewScreen', { user, onDelete, onModify });
 
     const goToAddScreen = () =>
-        navigation.navigate('UserAddScreen', {onAdd});
+        navigation.navigate('UserAddScreen', { onAdd });
 
     const handleSwitchToModules = () => {
-        navigation.navigate("UserListScreen");
-
-
-//   View -----------------------
-
-        return (
-
-            <Drawer.Navigator id={"my-drawer"}>
-                <Drawer.Screen name='Module Crudler' component={ModuleViewScreen}/>
-                <Drawer.Screen name='User Crudler' component={UserViewScreen}/>
-
-
-                <Screen>
-                    {/*<RenderCount/>*/}
-                    <ButtonTray>
-                        <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
-                    </ButtonTray>
-
-                    {isLoading && <Text>Loading Records...</Text>}
-
-                    <UserList users={users} onSelect={goToViewScreen}/>
-                </Screen>
-            </Drawer.Navigator>
-        );
+        navigation.navigate("ModuleListScreen");
     };
+
+    // View -----------------------
+    return (
+        <Screen drawer={<Drawer onSwitch={handleSwitchToModules} currentView="users" />}>
+            <ButtonTray>
+                <Button label='Add' icon={<Icons.Add />} onClick={goToAddScreen} />
+            </ButtonTray>
+
+            {isLoading && <Text>Loading Records...</Text>}
+
+            <UserList users={users} onSelect={goToViewScreen} />
+        </Screen>
+    );
 };
 
-// const styles = StyleSheet.create({});
-
 export default UserListScreen;
-
-
