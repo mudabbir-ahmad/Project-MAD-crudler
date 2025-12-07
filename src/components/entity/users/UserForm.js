@@ -11,6 +11,7 @@ const defaultUser = {
     UserEmail: null,
     UserUsertypeID: null,
     UserYearID: null,
+    UserLevel: null,
     UserImageURL: null,
 };
 
@@ -20,14 +21,22 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     defaultUser.UserID = Math.floor(100000 + Math.random() * 900000);
     defaultUser.UserImageURL = 'https://images.freeimages.com/images/small-preview/cf5/cellphone-1313194.jpg';
 
-    const usertypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
+    const userTypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
     const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
+
+    const levels = [
+        { value: 3, label: '3 (Foundation)' },
+        { value: 4, label: '4 (First Year)' },
+        { value: 5, label: '5 (Second Year)' },
+        { value: 6, label: '6 (Third Year)' },
+        { value: 7, label: '7 (Masters)' },
+    ];
 
     // State ----------------------
 
     const [user, setUser] = useState(originalUser || defaultUser);
 
-    const [usertypes, , isUsertypesLoading] = useLoad(usertypesEndpoint);
+    const [userTypes, , isUsertypesLoading] = useLoad(userTypesEndpoint);
     const [years, , isYearsLoading] = useLoad(yearsEndpoint);
 
     // Handlers -------------------
@@ -43,7 +52,7 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
     const submitLabel = originalUser ? 'Modify' : 'Add';
     const submitIcon = originalUser ? <Icons.Edit /> : <Icons.Add />;
 
-    const usertypeOptions = usertypes.map((usertype) => ({
+    const usertypeOptions = userTypes.map((usertype) => ({
         value: usertype.UsertypeID,
         label: usertype.UsertypeName
     }));
@@ -85,6 +94,14 @@ const UserForm = ({ originalUser, onSubmit, onCancel }) => {
                 prompt={'Select user type...'}
                 options={usertypeOptions}
                 isLoading={isUsertypesLoading}
+            />
+
+            <Form.InputSelect
+                label='Level'
+                value={user.UserLevel}
+                onChange={(value) => handleChange('UserLevel', value)}
+                prompt={'Select level...'}
+                options={levels}
             />
 
             <Form.InputSelect
