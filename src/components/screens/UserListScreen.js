@@ -1,10 +1,12 @@
 // import {useState, useEffect} from "react";
 import {LogBox, Text} from "react-native";
 import Screen from "../layout/Screen";
-import ModuleList from "../entity/modules/ModuleList";
 import {Button, ButtonTray} from "../UI/Button";
 import Icons from "../UI/Icons";
 import useLoad from "../API/useLoad";
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import ModuleViewScreen from "./ModuleViewScreen";
+import UserViewScreen from "./UserViewScreen";
 
 
 const UserListScreen = ({navigation}) => {
@@ -12,6 +14,7 @@ const UserListScreen = ({navigation}) => {
 //    let modules = initialModules;
     LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
+    const Drawer = createDrawerNavigator();
 
     const usersEndpoint = 'https://softwarehub.uk/unibase/api/users';
 
@@ -52,21 +55,32 @@ const UserListScreen = ({navigation}) => {
     const goToAddScreen = () =>
         navigation.navigate('UserAddScreen', {onAdd});
 
+    const handleSwitchToModules = () => {
+        navigation.navigate("UserListScreen");
+
 
 //   View -----------------------
 
-    return (
-        <Screen>
-            {/*<RenderCount/>*/}
-            <ButtonTray>
-                <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
-            </ButtonTray>
+        return (
 
-            {isLoading && <Text>Loading Records...</Text>}
+            <Drawer.Navigator id={"my-drawer"}>
+                <Drawer.Screen name='Module Crudler' component={ModuleViewScreen}/>
+                <Drawer.Screen name='User Crudler' component={UserViewScreen}/>
 
-            <ModuleList users={users} onSelect={goToViewScreen}/>
-        </Screen>
-    );
+
+                <Screen>
+                    {/*<RenderCount/>*/}
+                    <ButtonTray>
+                        <Button label='Add' icon={<Icons.Add/>} onClick={goToAddScreen}/>
+                    </ButtonTray>
+
+                    {isLoading && <Text>Loading Records...</Text>}
+
+                    <UserList users={users} onSelect={goToViewScreen}/>
+                </Screen>
+            </Drawer.Navigator>
+        );
+    };
 };
 
 // const styles = StyleSheet.create({});
