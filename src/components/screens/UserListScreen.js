@@ -51,7 +51,7 @@ const UserListScreen = ({ navigation }) => {
 
     // View -----------------------
     return (
-        <Screen drawer={<Drawer onSwitch={handleSwitchToModules} currentView="users" />}>
+        <Screen>
             <ButtonTray>
                 <Button label='Add' icon={<Icons.Add />} onClick={goToAddScreen} />
             </ButtonTray>
