@@ -10,7 +10,7 @@ const UserItem = ({ user, onSelect }) => {
         <Pressable key={user.UserID} onPress={() => onSelect(user)}>
             <View style={styles.userItem}>
                 <Text style={styles.text}>
-                    `${user.UserFirstname} ${user.UserLastname}`
+                    {user.UserFirstname} {user.UserLastname}
                 </Text>
             </View>
         </Pressable>

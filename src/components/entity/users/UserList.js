@@ -3,30 +3,28 @@ import UserItem from "./UserItem";
 import React from "react";
 
 const UserList = ({users, onSelect}) => {
-    //   Initialisation -------------
-    //   State ----------------------
-    //   Handlers -------------------
-    //   View -----------------------
+    // Initialisation -------------
+    // State ----------------------
+    // Handlers -------------------
+    // View -----------------------
 
     return (
-        <ScrollView style={styles.usersContainer}>
-            {users.map((user) => {
-                return (
+        <ScrollView style={styles.container}>
+            {
+                users.map((user) => (
                     <UserItem
-                        module={user}
-                        key={user.UserCode}
+                        key={user.UserID}
+                        user={user}
                         onSelect={onSelect}
                     />
-                )
-            })
+                ))
             }
         </ScrollView>
     );
 };
 
-
 const styles = StyleSheet.create({
-    usersContainer: {},
+    container: {},
 });
 
 export default UserList;
