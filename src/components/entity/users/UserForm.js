@@ -19,7 +19,7 @@ const UserForm = ({originalUser, onSubmit, onCancel}) => {
     // Initialisation -------------
 
     defaultUser.UserID = Math.floor(100000 + Math.random() * 900000);
-    defaultUser.UserImageURL = 'https://images.freeimages.com/images/small-preview/cf5/cellphone-1313194.jpg';
+    defaultUser.UserImageURL = 'https://images.generated.photos/tZmcC6WnzFmgAwRMsBnGYcmaj_NSktxhYzBfTqej_Lo/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MDE3MjYzLmpwZw.jpg';
 
     const userTypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
     const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';

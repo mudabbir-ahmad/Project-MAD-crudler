@@ -2,11 +2,16 @@ import {Alert, StyleSheet, Text, View} from "react-native";
 import FullWidthImage from "react-native-fullwidth-image";
 import {Button, ButtonTray} from "../../UI/Button";
 import Icons from "../../UI/Icons.js";
+import useLoad from "../../API/useLoad";
 
 const UserView = ({user, onDelete, onModify}) => {
     // Initialisation -------------
 
     const fullName = `${user.UserFirstname} ${user.UserLastname}`;
+
+    const userTypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
+    const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
+
 
     const levels = [
         {value: 3, label: '3 (Foundation)'},
@@ -17,6 +22,10 @@ const UserView = ({user, onDelete, onModify}) => {
     ];
 
     // State ----------------------
+
+    const [userTypes] = useLoad(userTypesEndpoint);
+    const [years] = useLoad(yearsEndpoint);
+
     // Handlers -------------------
 
     const handleDelete = () => onDelete(user);
@@ -34,6 +43,21 @@ const UserView = ({user, onDelete, onModify}) => {
 
     const userLevelLabel = levels.find(level => level.value === user.UserLevel)?.label || 'Unknown Level';
 
+    const getUserType = (usertypeID) => {
+        if (!usertypeID) return "Unknown";
+        const usertype = userTypes.find(type => type.UsertypeID === usertypeID);
+        return usertype ? usertype.UsertypeName : usertypeID;
+    };
+
+    const getYear = (yearID) => {
+        if (!yearID) return "Unknown";
+        const year = years.find(y => y.YearID === yearID);
+        return year ? year.YearName : yearID;
+    };
+
+    const yearName = getYear(user.UserYearID);
+    const userTypeName = getUserType(user.UserUsertypeID);
+
     // View -----------------------
 
     return (
@@ -45,8 +69,9 @@ const UserView = ({user, onDelete, onModify}) => {
                 <Text style={styles.text}>{user.UserEmail}</Text>
                 <Text style={styles.text}>Level {userLevelLabel}</Text>
                 <Text style={styles.text}>
-                    {user.UserUsertypeName || 'Unknown Type'} <Text style={styles.dimText}>(User Type)</Text>
+                    {user.UserUsertypeName || userTypeName} <Text style={styles.dimText}>(User Type)</Text>
                 </Text>
+                <Text style={styles.text}>Cohort {yearName}</Text>
             </View>
 
             <ButtonTray>
