@@ -8,6 +8,14 @@ const UserView = ({ user, onDelete, onModify }) => {
 
     const fullName = `${user.UserFirstname} ${user.UserLastname}`;
 
+    const levels = [
+        { value: 3, label: '3 (Foundation)' },
+        { value: 4, label: '4 (First Year)' },
+        { value: 5, label: '5 (Second Year)' },
+        { value: 6, label: '6 (Third Year)' },
+        { value: 7, label: '7 (Masters)' },
+    ];
+
     // State ----------------------
     // Handlers -------------------
 
@@ -24,6 +32,8 @@ const UserView = ({ user, onDelete, onModify }) => {
         );
     };
 
+    const userLevelLabel = levels.find(level => level.value === user.UserLevel)?.label || 'Unknown Level';
+
     // View -----------------------
 
     return (
@@ -31,9 +41,9 @@ const UserView = ({ user, onDelete, onModify }) => {
             <FullWidthImage source={{ uri: user.UserImageURL }} style={styles.image} />
 
             <View style={styles.infoTray}>
-                <Text style={styles.boldText}>View {fullName}</Text>
+                <Text style={styles.boldText}>{fullName}</Text>
                 <Text style={styles.text}>{user.UserEmail}</Text>
-                <Text style={styles.text}>Level {user.UserLevel}</Text>
+                <Text style={styles.text}>Level {userLevelLabel}</Text>
                 <Text style={styles.text}>
                     {user.UserUsertypeName || 'Unknown Type'} <Text style={styles.dimText}>(User Type)</Text>
                 </Text>
@@ -78,3 +88,4 @@ const styles = StyleSheet.create({
 });
 
 export default UserView;
+
