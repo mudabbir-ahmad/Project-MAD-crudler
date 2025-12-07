@@ -47,7 +47,6 @@ const UserStack = () => (
         screenOptions={{
             headerStyle: {backgroundColor: "black"},
             headerTintColor: "white",
-            swipeEdgeWidth: 100,
             drawerType: 'slide',
         }}
     >
