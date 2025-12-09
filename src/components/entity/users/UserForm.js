@@ -34,6 +34,11 @@ const UserForm = ({originalUser, onSubmit, onCancel}) => {
         {value: 7, label: '7 (Masters)'},
     ];
 
+    const registeredOptions = [
+        {value: 1, label: 'True'},
+        {value: 0, label: 'False'},
+    ];
+
     // State ----------------------
 
     const [user, setUser] = useState(originalUser || defaultUser);

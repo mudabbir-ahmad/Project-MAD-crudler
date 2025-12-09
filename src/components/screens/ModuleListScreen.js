@@ -25,7 +25,7 @@ const ModuleListScreen = ({navigation}) => {
         const deleteEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
         const result = await API.delete(deleteEndpoint, module);
         if (result.isSuccess) {
-            loadModules(modulesEndpoint)
+            await loadModules(modulesEndpoint)
             navigation.goBack();
         } else
             Alert.alert(result.message);
@@ -38,7 +38,7 @@ const ModuleListScreen = ({navigation}) => {
     const handleAdd = async (module) => {
         const result = await API.post(modulesEndpoint, module);
         if (result.isSuccess) {
-            loadModules(modulesEndpoint)
+            await loadModules(modulesEndpoint)
             navigation.goBack();
         } else
             Alert.alert(result.message);
@@ -48,7 +48,7 @@ const ModuleListScreen = ({navigation}) => {
         const putEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
         const result = await API.put(putEndpoint, module);
         if ( result.isSuccess ) {
-            loadModules(modulesEndpoint)
+            await loadModules(modulesEndpoint)
             navigation.navigate('ModuleListScreen');
         } else
             Alert.alert(result.message);
