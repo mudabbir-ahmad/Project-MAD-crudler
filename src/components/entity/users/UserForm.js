@@ -13,6 +13,7 @@ const defaultUser = {
     UserYearID: null,
     UserLevel: null,
     UserImageURL: null,
+    UserRegistered: null,
 };
 
 const UserForm = ({originalUser, onSubmit, onCancel}) => {
@@ -20,6 +21,7 @@ const UserForm = ({originalUser, onSubmit, onCancel}) => {
 
     defaultUser.UserID = Math.floor(100000 + Math.random() * 900000);
     defaultUser.UserImageURL = 'https://images.generated.photos/tZmcC6WnzFmgAwRMsBnGYcmaj_NSktxhYzBfTqej_Lo/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/MDE3MjYzLmpwZw.jpg';
+    defaultUser.UserRegistered = 0;
 
     const userTypesEndpoint = 'https://softwarehub.uk/unibase/api/usertypes';
     const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
@@ -117,6 +119,14 @@ const UserForm = ({originalUser, onSubmit, onCancel}) => {
                 label='User Image URL'
                 value={user.UserImageURL}
                 onChange={(value) => handleChange('UserImageURL', value)}
+            />
+
+            <Form.InputSelect
+                label='Registered'
+                value={user.UserRegistered}
+                onChange={(value) => handleChange('UserRegistered', value)}
+                prompt={'Select registered status...'}
+                options={registeredOptions}
             />
         </Form>
     );
