@@ -1,9 +1,10 @@
-import {LogBox, Text} from "react-native";
+import {Alert, LogBox, Text} from "react-native";
 import Screen from "../layout/Screen";
 import UserList from "../entity/users/UserList";
 import {Button, ButtonTray} from "../UI/Button";
 import Icons from "../UI/Icons";
 import useLoad from "../API/useLoad";
+import API from "../API/API";
 
 const UserListScreen = ({navigation}) => {
     // Initialisation -------------
@@ -12,42 +13,45 @@ const UserListScreen = ({navigation}) => {
     const usersEndpoint = 'https://softwarehub.uk/unibase/api/users';
 
     // State ----------------------
-    const [users, setUsers, isLoading, loadUsers] = useLoad(usersEndpoint);
+    const [users, , isLoading, loadUsers] = useLoad(usersEndpoint);
 
     // Handlers -------------------
-    const handleDelete = (user) =>
-        setUsers(users.filter((item) => item.UserID !== user.UserID));
 
-    const onDelete = (user) => {
-        handleDelete(user);
-        navigation.goBack();
+    const handleAdd = async (user) => {
+        const result = await API.post(usersEndpoint, user);
+        if (result.isSuccess) {
+            loadUsers(usersEndpoint)
+            navigation.goBack();
+        } else
+            Alert.alert(result.message);
     };
 
-    const handleAdd = (user) => setUsers([...users, user]);
-
-    const handleModify = (updatedUser) => setUsers(
-        users.map((user) => (user.UserID === updatedUser.UserID) ? updatedUser : user),
-    );
-
-    const onAdd = (user) => {
-        handleAdd(user);
-        navigation.goBack();
+    const onModify = async (user) => {
+        const putEndpoint = `${usersEndpoint}/${user.UserID}`;
+        const result = await API.put(putEndpoint, user);
+        if ( result.isSuccess ) {
+            loadUsers(usersEndpoint)
+            navigation.navigate('UserListScreen');
+        } else
+            Alert.alert(result.message);
     };
 
-    const onModify = (user) => {
-        handleModify(user);
-        navigation.replace('UserViewScreen', {user, onDelete, onModify});
-    };
+    const onDelete = async (user) => {
+        const deleteEndpoint = `${usersEndpoint}/${user.UserID}`;
+        const result = await API.delete(deleteEndpoint, user);
+        if (result.isSuccess) {
+            loadUsers(usersEndpoint)
+            navigation.goBack();
+        } else
+            Alert.alert(result.message);
+    }
 
     const goToViewScreen = (user) =>
         navigation.navigate('UserViewScreen', {user, onDelete, onModify});
 
     const goToAddScreen = () =>
-        navigation.navigate('UserAddScreen', {onAdd});
+        navigation.navigate('UserAddScreen', {onAdd: handleAdd});
 
-    const handleSwitchToModules = () => {
-        navigation.navigate("ModuleListScreen");
-    };
 
     // View -----------------------
     return (
