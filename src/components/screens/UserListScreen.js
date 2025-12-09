@@ -13,9 +13,28 @@ const UserListScreen = ({navigation}) => {
     const usersEndpoint = 'https://softwarehub.uk/unibase/api/users';
 
     // State ----------------------
-    const [users, isLoading, loadUsers] = useLoad(usersEndpoint);
+    const [users, , isLoading, loadUsers] = useLoad(usersEndpoint);
 
     // Handlers -------------------
+
+    const handleAdd = async (user) => {
+        const result = await API.post(usersEndpoint, user);
+        if (result.isSuccess) {
+            loadUsers(usersEndpoint)
+            navigation.goBack();
+        } else
+            Alert.alert(result.message);
+    };
+
+    const onModify = async (user) => {
+        const putEndpoint = `${usersEndpoint}/${user.UserID}`;
+        const result = await API.put(putEndpoint, user);
+        if ( result.isSuccess ) {
+            loadUsers(usersEndpoint)
+            navigation.navigate('UserListScreen');
+        } else
+            Alert.alert(result.message);
+    };
 
     const onDelete = async (user) => {
         const deleteEndpoint = `${usersEndpoint}/${user.UserID}`;
@@ -26,25 +45,6 @@ const UserListScreen = ({navigation}) => {
         } else
             Alert.alert(result.message);
     }
-
-    const handleAdd = async (user) => {
-        const result = await API.post(usersEndpoint, user);
-        if (result.isSuccess) {
-            await loadUsers(usersEndpoint)
-            navigation.goBack();
-        } else
-            Alert.alert(result.message);
-    };
-
-    const onModify = async (user) => {
-        const putEndpoint = `${usersEndpoint}/${user.UserID}`;
-        const result = await API.put(putEndpoint, user);
-        if ( result.isSuccess ) {
-            await loadUsers(usersEndpoint)
-            navigation.navigate('UserListScreen');
-        } else
-            Alert.alert(result.message);
-    };
 
     const goToViewScreen = (user) =>
         navigation.navigate('UserViewScreen', {user, onDelete, onModify});

@@ -17,28 +17,14 @@ const ModuleListScreen = ({navigation}) => {
 
 //   State ----------------------
 
-    const [modules, isLoading, loadModules] = useLoad(modulesEndpoint);
+    const [modules, , isLoading, loadModules] = useLoad(modulesEndpoint);
 
 //   Handlers -------------------
 
-    const onDelete = async (module) => {
-        const deleteEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
-        const result = await API.delete(deleteEndpoint, module);
-        if (result.isSuccess) {
-            await loadModules(modulesEndpoint)
-            navigation.goBack();
-        } else
-            Alert.alert(result.message);
-    }
-
-    // This code is the old handleAdd which added to local state.
-    // const handleAdd = (module) => setModules([...modules, module]);
-
-    //new handleAdd which posts to the API
     const handleAdd = async (module) => {
         const result = await API.post(modulesEndpoint, module);
         if (result.isSuccess) {
-            await loadModules(modulesEndpoint)
+            loadModules(modulesEndpoint)
             navigation.goBack();
         } else
             Alert.alert(result.message);
@@ -48,12 +34,21 @@ const ModuleListScreen = ({navigation}) => {
         const putEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
         const result = await API.put(putEndpoint, module);
         if ( result.isSuccess ) {
-            await loadModules(modulesEndpoint)
+            loadModules(modulesEndpoint)
             navigation.navigate('ModuleListScreen');
         } else
             Alert.alert(result.message);
     };
 
+    const onDelete = async (module) => {
+        const deleteEndpoint = `${modulesEndpoint}/${module.ModuleID}`;
+        const result = await API.delete(deleteEndpoint, module);
+        if (result.isSuccess) {
+            loadModules(modulesEndpoint)
+            navigation.goBack();
+        } else
+            Alert.alert(result.message);
+    }
 
     const goToViewScreen = (module) =>
         navigation.navigate('ModuleViewScreen', {module, onDelete, onModify });

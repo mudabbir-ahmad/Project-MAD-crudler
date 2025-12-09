@@ -19,7 +19,7 @@ const ModuleForm = ({originalModule, onSubmit, onCancel}) => {
     //   Initialisation -------------
 
     defaultModule.ModuleID = Math.floor(100000 + Math.random() * 900000);
-    defaultModule.ModuleImage = 'https://images.freeimages.com/images/small-preview/cf5/cellphone-1313194.jpg';
+    defaultModule.ModuleImageURL = 'https://images.freeimages.com/images/small-preview/cf5/cellphone-1313194.jpg';
 
     const yearsEndpoint = 'https://softwarehub.uk/unibase/api/years';
 
